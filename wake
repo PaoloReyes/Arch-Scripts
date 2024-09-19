@@ -1,6 +1,4 @@
 #!/bin/bash
 
-HOME="/home/paolo"
-
 $HOME/.scripts/reload-keyboard
 $HOME/.scripts/reload-ollama
