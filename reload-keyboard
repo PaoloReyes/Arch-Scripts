@@ -1,0 +1,14 @@
+#!/bin/bash
+
+asusctl led-mode rainbow-cycle
+
+STATE_FILE="$HOME/.config/hypr/scripts/.kb_state"
+
+KB_STATE=$(cat "$STATE_FILE")
+
+case $KB_STATE in
+    0) asusctl --kbd-bright off ;;
+    1) asusctl --kbd-bright low ;;
+    2) asusctl --kbd-bright med ;;
+    3) asusctl --kbd-bright high ;;
+esac
