@@ -1,0 +1,40 @@
+#!/opt/miniconda3/envs/pdf/bin/python
+
+import os, re, cv2
+import numpy as np
+from pdf2image import convert_from_path
+from PIL import Image
+from PyPDF2 import PdfWriter
+
+path = os.path.join('/home', 'paolo', 'Downloads')
+
+if __name__ == "__main__":
+    pdfs = []
+    pattern = re.compile(r'^[0-9 a-z]+_labels\.pdf$', re.IGNORECASE)
+    for file in os.listdir(path):
+        if pattern.search(file):
+            pdfs.append(os.path.join(path, file))
+
+    if len(pdfs):   
+        print('\n-------------------------------------------------------------')
+        print('Merging pdfs into a single file...')
+
+        pdf_writer = PdfWriter()    
+
+        for pdf in pdfs:
+            pdf_writer.append(pdf)
+
+        output_path = os.path.join(path, 'ML_merged_labels.pdf')
+        if os.path.exists(output_path):
+            pdf_writer.append(output_path)
+        
+        with open(output_path, 'wb') as output_pdf:
+            pdf_writer.write(output_pdf)
+
+        for pdf in pdfs:
+            os.remove(pdf)
+
+        print('All pdfs have been merged into a single file at Downloads.')
+        print('-------------------------------------------------------------')
+    else:
+        print('No Mercado Libre pdfs were found.')
