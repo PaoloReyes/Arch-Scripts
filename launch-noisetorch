@@ -4,6 +4,6 @@ while ! ping -c 1 google.com > /dev/null; do
     sleep 1 # Wait for 1 second and check again.
 done
 
-sleep 3
+sleep 5
 
 noisetorch -s alsa_input.pci-0000_00_1f.3.analog-stereo -i -o
